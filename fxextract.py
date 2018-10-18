@@ -24,56 +24,66 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 flag = 0
+morentries = 1
 
 requiredFX = ['USD']#, 'GBP', 'AUD', 'CHF', 'SGD', 'ZAR']
 
-while (flag == 0):
-	rawdate = input('Enter date in (YYYY-MM-DD) format- ')
+while (morentries == 1) :
 
-	if (len(rawdate) == 0) :
-		rawdate = '2018-10-10'
-		print('Using default date as', rawdate)
-		flag = 1	
-	elif (len(rawdate) != 10) :
-		print('Incorrect date entered, try again')
-		flag = 0
-		continue
-	else : 
-		flag = 1
+	while (flag == 0):
+		rawdate = input('Enter date in (YYYY-MM-DD) format- ')
 
-#pydate = time.strptime(rawdate, "%d/%m/%Y")
+		if (len(rawdate) == 0) :
+			rawdate = '2018-10-10'
+			print('Using default date as', rawdate)
+			flag = 1	
+		elif (len(rawdate) != 10) :
+			print('Incorrect date entered, try again')
+			flag = 0
+			continue
+		else : 
+			flag = 1
 
-#print (pydate)
+	#pydate = time.strptime(rawdate, "%d/%m/%Y")
+
+	#print (pydate)
 
 
-# url for extraction from ECB
-url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml?8222c213c2cab6b691d12745c85fcf3b"
+	# url for extraction from ECB
+	url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml?8222c213c2cab6b691d12745c85fcf3b"
 
+		
+	data = urlopen(url, context=ctx).read().decode()
+	f = open("data.txt","a+") #create add file in write
+
+	#f.close
+
+	print('test1')
+
+	#print('Received', len(data), 'characters') 
+
+	content = ET.fromstring(data)
+	#print(content[0],'\n',content[1],'\n',content[2])
+
+	for child in content[2] :
+		loopdate = child.attrib['time']
+		if (loopdate != rawdate) :
+			continue
+		else :
+			for subchild in child :
+				if (subchild.attrib['currency'] in requiredFX) :
+					print (rawdate, ':', subchild.attrib['currency'],':',subchild.attrib['rate'])
+					f.write(rawdate)
+					f.write(':')
+					f.write(subchild.attrib['currency'])
+					f.write(':')
+					f.write(subchild.attrib['rate'])
+					f.write('\n')
+	f.close
 	
-data = urlopen(url, context=ctx).read().decode()
-f = open("data.txt","a+") #create add file in write
-
-#f.close
-
-print('test1')
-
-#print('Received', len(data), 'characters') 
-
-content = ET.fromstring(data)
-#print(content[0],'\n',content[1],'\n',content[2])
-
-for child in content[2] :
-	loopdate = child.attrib['time']
-	if (loopdate != rawdate) :
-		continue
+	option = input('Do you want to fetch rates for more dates? (Y/n):')
+	if ((len(option) == 0) or (option == "Y") or (option == "y"))  :
+		morentries = 1
+		flag = 0
 	else :
-		for subchild in child :
-			if (subchild.attrib['currency'] in requiredFX) :
-				print (rawdate, ':', subchild.attrib['currency'],':',subchild.attrib['rate'])
-				f.write(rawdate)
-				f.write(':')
-				f.write(subchild.attrib['currency'])
-				f.write(':')
-				f.write(subchild.attrib['rate'])
-				f.write('\n')
-f.close
+		morentries = 0
