@@ -12,6 +12,9 @@ Attribute RefreshList2.VB_ProcData.VB_Invoke_Func = "k\n14"
     
     Set sht = ActiveSheet
     
+    sht.UsedRange.ClearContents
+    sht.ChartObjects.Delete
+    
     With ActiveSheet.QueryTables.Add(Connection:= _
         "TEXT;C:\Users\asrinivasan.SATURN\Desktop\connectionstatus.txt", Destination _
         :=Range("$A$2"))
