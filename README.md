@@ -10,3 +10,5 @@ A short note about each script follows:
 * Networkcheck - Checks internet connectivity by pinging google.com at periodic intervals. Writes result to a text file for reference. Also read about Module1.bas, which is a related file to visualize the output.
 
 * Module1.bas - This is an MSExcel recorded macro that uses the output of Networkcheck.py to present a visual line diagram of network uptime and downtime. Do change the file path to ensure that the correct file is picked up by the macro.
+
+* MusicTheory - Gives information about notes in a scale and common chords part of a triad in the scale
