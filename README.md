@@ -12,3 +12,5 @@ A short note about each script follows:
 * Module1.bas - This is an MSExcel recorded macro that uses the output of Networkcheck.py to present a visual line diagram of network uptime and downtime. Do change the file path to ensure that the correct file is picked up by the macro.
 
 * MusicTheory - Gives information about notes in a scale and common chords part of a triad in the scale
+
+* asbot01.py - Python script that controls a Telegram bot. Performs simple functions like writing input to a database (locally hosted). The functions of the bot will be gradually expanded as experimentation continues.
