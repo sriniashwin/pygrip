@@ -97,7 +97,7 @@ def main():
 		
         humantime = time.strftime("%a, %d %b %Y %H:%M:%S %Z", time.localtime(etime))
         
-        if ((text == "/quitit") and (str(chat) == "524453611")):
+        if ((text == "/quitit") and (str(chat) == "12345")): # Enter correct chat ID
             print("Exit message received from user, ending program..")
             last_update_id = get_last_update_id(updates) + 2
             exit() 
