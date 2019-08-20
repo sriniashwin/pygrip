@@ -14,3 +14,5 @@ A short note about each script follows:
 * MusicTheory - Gives information about notes in a scale and common chords part of a triad in the scale
 
 * asbot01.py - Python script that controls a Telegram bot. Performs simple functions like writing input to a database (locally hosted). The functions of the bot will be gradually expanded as experimentation continues.
+
+* asbot02_1.py - Modification of asbot01.py with functionality to use api offered by openweathermap.org to retrieve weather information for a location and pass it on to the chat user on Telegram
